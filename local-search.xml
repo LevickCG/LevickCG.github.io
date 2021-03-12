@@ -3,5 +3,36 @@
   
   
   
+  <entry>
+    <title>动态规划简介———以Fibonacci数列为例</title>
+    <link href="/2021/03/02/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%B0%8F%E7%BB%93/"/>
+    <url>/2021/03/02/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%B0%8F%E7%BB%93/</url>
+    
+    <content type="html"><![CDATA[<p>​        本文从Fibonacci数列的求解来简单介绍动态规划的基本思想与一般解法。</p><h2 id="从Fibonacci数列讲起"><a href="#从Fibonacci数列讲起" class="headerlink" title="从Fibonacci数列讲起"></a>从Fibonacci数列讲起</h2><p>​        Fibonacci数列在各种科目的教材中出现的次数很多，多为引出递归这一思想的样例，大家都比较熟悉，而此处，我用这一例子来阐述动态规划的基本思想、方法。</p><p>我们已知Fibonacci数列性质如下：</p><script type="math/tex; mode=display">F(0)=0, F(1)=1\\F(i)=F(i-1)+F(i-2)\ \ \ \ i=2,3,4,...,n</script><p>一般的<u>递归</u>解法如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">//假设非法输入返回-1</span><br><span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> F(n<span class="hljs-number">-1</span>)+F(n<span class="hljs-number">-2</span>);<br>&#125;<br></code></pre></td></tr></table></figure><p>​        但是递归的方法显然会出现重复计算（比如计算$F(3)=F(2)+F(1)=(F(1)+F(0))+F(1)$ ,当n更大时，重复计算更多)，时间复杂度为$O((\frac{1+\sqrt{5}}{2})^n)$（时间复杂度的详细计算可以自行搜索），明显不是一个好的算法。</p><h2 id="动态规划——递归-重复值的记录"><a href="#动态规划——递归-重复值的记录" class="headerlink" title="动态规划——递归+重复值的记录"></a>动态规划——递归+重复值的记录</h2><p>​        很明显，改进递归算法的方向之一是减少重复计算，如何解决？我们用数组的形式记录之前已经计算过的值。</p><p>​        通过简单的改进，具有简单递归思想的算法如下：</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">//假设非法输入返回-1</span><br>    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">fib</span><span class="hljs-params">(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>    fib[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;i++)&#123;<br>        fib[i]=fib[i<span class="hljs-number">-1</span>]+fib[i<span class="hljs-number">-2</span>];<br>    &#125;<br>    <span class="hljs-keyword">return</span> fib[n];<br>&#125;<br></code></pre></td></tr></table></figure><p>​        用<strong>fib</strong>数组来储存之前计算过的斐波那契数，不用再递归求解。由于循环中$i$由小到大，所以我们能够保证在求解$fib[i]$时，$fib[i-1],  fib[i-2]$已经被求解出来。</p><h2 id="动态规划思想简括"><a href="#动态规划思想简括" class="headerlink" title="动态规划思想简括"></a>动态规划思想简括</h2><p>​        所以动态规划的思想可以简单地概括为：</p><script type="math/tex; mode=display">DP=recursion+memorization</script><blockquote><ul><li><p>recursion: 问题本质可以数学化为递归数列的求解，能找到相应的递推公式</p></li><li><p>memorization: 通过数组或其他变量来存储已经计算过的项，减少重复计算</p></li></ul></blockquote><p>所以在 </p><p> 1.对问题最有解法可用于子问题（recursion）。</p><p> 2.子问题与原问题有相交（overlap），且递归的解包含子问题的解且重复多次（可用memorization）。 </p><p>两者同时成立时，可以考虑用DP解决该问题。</p><p>如果理解的话，尝试一下自己能否独立写出$leetcode$上这道$Fibonacci$数列的题呢？</p><p><a href="https://leetcode-cn.com/problems/fibonacci-number/">509-斐波那契数</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Algorithm</category>
+      
+      <category>dynamic programming</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Algorithm</tag>
+      
+      <tag>dynamic programming</tag>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
