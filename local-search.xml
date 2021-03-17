@@ -34,5 +34,30 @@
   
   
   
+  <entry>
+    <title>(Updating...)Notes for Linux commands</title>
+    <link href="/2020/03/16/LinuxCommand/"/>
+    <url>/2020/03/16/LinuxCommand/</url>
+    
+    <content type="html"><![CDATA[<p>​        This article is the notes of the book <strong><em>The Linux Command Line</em></strong> and other useful commands that I came across. I will try to use simple words to cover the contents of the book by omitting unnecessary sentences.</p><h2 id="Learning-Shell"><a href="#Learning-Shell" class="headerlink" title="Learning Shell"></a>Learning Shell</h2><h3 id="What-is-Shell"><a href="#What-is-Shell" class="headerlink" title="What is Shell?"></a>What is Shell?</h3><p>When we enter the terminal, we see something like :</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">levick@ubuntu:~$<br></code></pre></td></tr></table></figure><p>which represent <code>username@hostname:currentPath$</code>. In this (my) case, my username is $levick$, my hostname(name of the machine) is $ubuntu$, the current path is $ \sim$(home path of  current user), $\$$  -&gt; normal user, $#$ -&gt; super user.</p><blockquote><p>BTW, $/$ represent the root directory of the computer. ( It’s kind of like <strong><em>This PC</em></strong> in <strong>Windows</strong>)</p><p>And, to log in super user, type <code>sudo -s</code>.</p></blockquote><p>some really basic commands:</p><p><code>date</code>: get today’s date.</p><p><code>cal</code>: display the date like a calendar.</p><p><code>df</code>: the current amount of free space on your <strong>disk drives</strong>.</p><p><code>fress</code>: display the amount of free <strong>memory</strong>.</p><p>to close the terminal, type<code>exit</code>.</p><h2 id="Cases-I-Came-across"><a href="#Cases-I-Came-across" class="headerlink" title="Cases I Came across"></a>Cases I Came across</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>Linux</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Linux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
   
 </search>
