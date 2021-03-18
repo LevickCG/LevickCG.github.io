@@ -188,7 +188,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      159 字
+      337 字
     </span>
   
 
@@ -198,7 +198,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -243,8 +243,49 @@
 <p><code>date</code>: get today’s date.</p>
 <p><code>cal</code>: display the date like a calendar.</p>
 <p><code>df</code>: the current amount of free space on your <strong>disk drives</strong>.</p>
-<p><code>fress</code>: display the amount of free <strong>memory</strong>.</p>
+<p><code>free</code>: display the amount of free <strong>memory</strong>.</p>
 <p>to close the terminal, type<code>exit</code>.</p>
+<h2 id="Change-directory-in-the-File-System"><a href="#Change-directory-in-the-File-System" class="headerlink" title="Change directory in the File System"></a>Change directory in the File System</h2><p>To navigate the file system, we may use following commands.</p>
+<blockquote>
+<ul>
+<li><code>pwd</code>: <del>display your <strong>p</strong>ass<strong>w</strong>or<strong>d</strong></del> display the current directory. (short for <strong>P</strong>rint <strong>W</strong>orking <strong>D</strong>irectory)</li>
+<li><code>file</code>: used as <code>file filename</code>, to check the file format of chosen file.</li>
+<li><code>ls</code>: list the contents of the current directory.</li>
+<li><code>cd</code>: <strong>c</strong>hange <strong>d</strong>irectory, used as <code>cd PathName</code>.</li>
+</ul>
+</blockquote>
+<p><code>pwd</code> and <code>file</code> are simple, while <code>ls</code> and <code>cd</code> can be more complex.</p>
+<h3 id="The-command-cd"><a href="#The-command-cd" class="headerlink" title="The command cd"></a>The command <code>cd</code></h3><p><code>cd</code> is what we use all the time, because we have to change the directory constantly.  The are 2 different methods to represent <code>Path</code>——–&gt;<strong><em>absolute pathname</em></strong> or <strong><em>relative pathname</em></strong>. </p>
+<blockquote>
+<p><strong><em>absolute pathname</em></strong>: starts from the root directory and leads to its destination</p>
+<p><strong><em>relative pathname</em></strong>: starts from the working directory, uses <code>.</code> to represent the working directory and <code>..</code> to represent the parent directory of the working directory.</p>
+</blockquote>
+<p>Even more , we can change the working directory easily with following shortcut.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Shortcut</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">cd</td>
+<td>go to the home directory</td>
+</tr>
+<tr>
+<td style="text-align:left">cd -</td>
+<td>go to the previous directory</td>
+</tr>
+<tr>
+<td style="text-align:left">cd ~user-name</td>
+<td>go to the home directory of the “user-name”</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>2021.3.18 update…</p>
 <h2 id="Cases-I-Came-across"><a href="#Cases-I-Came-across" class="headerlink" title="Cases I Came across"></a>Cases I Came across</h2>
             </div>
             <hr>
