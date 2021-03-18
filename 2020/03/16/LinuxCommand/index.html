@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+<html lang="en" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -233,7 +233,7 @@
               <p>​        This article is the notes of the book <strong><em>The Linux Command Line</em></strong> and other useful commands that I came across. I will try to use simple words to cover the contents of the book by omitting unnecessary sentences.</p>
 <h2 id="Learning-Shell"><a href="#Learning-Shell" class="headerlink" title="Learning Shell"></a>Learning Shell</h2><h3 id="What-is-Shell"><a href="#What-is-Shell" class="headerlink" title="What is Shell?"></a>What is Shell?</h3><p>When we enter the terminal, we see something like :</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">levick@ubuntu:~$<br></code></pre></td></tr></table></figure>
-<p>which represent <code>username@hostname:currentPath$</code>. In this (my) case, my username is $levick$, my hostname(name of the machine) is $ubuntu$, the current path is $ \sim$(home path of  current user), $\$$  -&gt; normal user, $#$ -&gt; super user.</p>
+<p>which represent <code>username@hostname:currentPath$</code>. In this (my) case, my username is $levick$, my hostname(name of the machine) is $ubuntu$, the current path is $ \sim$(home path of  current user), $\$$  -&gt; normal user, # -&gt; super user.</p>
 <blockquote>
 <p>BTW, $/$ represent the root directory of the computer. ( It’s kind of like <strong><em>This PC</em></strong> in <strong>Windows</strong>)</p>
 <p>And, to log in super user, type <code>sudo -s</code>.</p>
@@ -495,5 +495,23 @@
 
 
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+
+<!--<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>
