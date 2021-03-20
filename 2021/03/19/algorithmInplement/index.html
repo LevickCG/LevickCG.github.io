@@ -15,12 +15,12 @@
   
   <meta name="theme-color" content="#2f4154">
   
-    <meta name="description" content="本文从Fibonacci数列的求解来简单介绍动态规划的基本思想与一般解法。">
+    <meta name="description" content="本文记录了算法分析与设计课中部分算法的代码C++实现。">
   
   <meta name="author" content="Levick Cheng">
   <meta name="keywords" content="">
   
-  <title>动态规划简介———以Fibonacci数列为例 - Levick&#39;s blog</title>
+  <title>持续更新算法分析与设计--部分算法C++实现 - Levick&#39;s blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -161,12 +161,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/dp1_banner.png') no-repeat center center;
+         style="background: url('/img/Algo_banner.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="动态规划简介———以Fibonacci数列为例">
+            <span class="h2" id="subtitle" title="持续更新算法分析与设计--部分算法C++实现">
               
             </span>
 
@@ -176,8 +176,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-03 00:00" pubdate>
-        March 3, 2021 am
+      <time datetime="2021-03-19 23:59" pubdate>
+        March 19, 2021 pm
       </time>
     </span>
   
@@ -188,7 +188,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      630 字
+      385 字
     </span>
   
 
@@ -228,38 +228,16 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">动态规划简介———以Fibonacci数列为例</h1>
+            <h1 style="display: none">持续更新算法分析与设计--部分算法C++实现</h1>
             
             <div class="markdown-body">
-              <p>​        本文从Fibonacci数列的求解来简单介绍动态规划的基本思想与一般解法。</p>
-<h2 id="从Fibonacci数列讲起"><a href="#从Fibonacci数列讲起" class="headerlink" title="从Fibonacci数列讲起"></a>从Fibonacci数列讲起</h2><p>​        Fibonacci数列在各种科目的教材中出现的次数很多，多为引出递归这一思想的样例，大家都比较熟悉，而此处，我用这一例子来阐述动态规划的基本思想、方法。</p>
-<p>我们已知Fibonacci数列性质如下：</p>
-<script type="math/tex; mode=display">
-F(0)=0, F(1)=1
-\\
-F(i)=F(i-1)+F(i-2)\ \ \ \ i=2,3,4,...,n</script><p>一般的<u>递归</u>解法如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">0</span>)		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">//假设非法输入返回-1</span><br>	<span class="hljs-keyword">if</span>(n==<span class="hljs-number">0</span>)	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>)	<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">return</span> F(n<span class="hljs-number">-1</span>)+F(n<span class="hljs-number">-2</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>​        但是递归的方法显然会出现重复计算（比如计算$F(3)=F(2)+F(1)=(F(1)+F(0))+F(1)$ ,当n更大时，重复计算更多)，时间复杂度为$O((\frac{1+\sqrt{5}}{2})^n)$（时间复杂度的详细计算可以自行搜索），明显不是一个好的算法。</p>
-<h2 id="动态规划——递归-重复值的记录"><a href="#动态规划——递归-重复值的记录" class="headerlink" title="动态规划——递归+重复值的记录"></a>动态规划——递归+重复值的记录</h2><p>​        很明显，改进递归算法的方向之一是减少重复计算，如何解决？我们用数组的形式记录之前已经计算过的值。</p>
-<p>​        通过简单的改进，具有简单递归思想的算法如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">F</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(n&lt;<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<span class="hljs-comment">//假设非法输入返回-1</span><br>    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">fib</span><span class="hljs-params">(n+<span class="hljs-number">1</span>,<span class="hljs-number">0</span>)</span></span>;<br>    fib[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;=n;i++)&#123;<br>        fib[i]=fib[i<span class="hljs-number">-1</span>]+fib[i<span class="hljs-number">-2</span>];<br>    &#125;<br>    <span class="hljs-keyword">return</span> fib[n];<br>&#125;<br></code></pre></td></tr></table></figure>
-<p>​        用<strong>fib</strong>数组来储存之前计算过的斐波那契数，不用再递归求解。由于循环中$i$由小到大，所以我们能够保证在求解$fib[i]$时，$fib[i-1],  fib[i-2]$已经被求解出来。</p>
-<h2 id="动态规划思想简括"><a href="#动态规划思想简括" class="headerlink" title="动态规划思想简括"></a>动态规划思想简括</h2><p>​        所以动态规划的思想可以简单地概括为：</p>
-<script type="math/tex; mode=display">
-DP=recursion+memorization</script><blockquote>
-<ul>
-<li><p>recursion: 问题本质可以数学化为递归数列的求解，能找到相应的递推公式</p>
-</li>
-<li><p>memorization: 通过数组或其他变量来存储已经计算过的项，减少重复计算</p>
-</li>
-</ul>
-</blockquote>
-<p>所以在 </p>
-<p> 1.对问题最有解法可用于子问题（recursion）。</p>
-<p> 2.子问题与原问题有相交（overlap），且递归的解包含子问题的解且重复多次（可用memorization）。 </p>
-<p>两者同时成立时，可以考虑用DP解决该问题。</p>
-<p>如果理解的话，尝试一下自己能否独立写出$leetcode$上这道$Fibonacci$数列的题呢？</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/fibonacci-number/">509-斐波那契数</a></p>
+              <h2 id="插入排序Insert-Sort"><a href="#插入排序Insert-Sort" class="headerlink" title="插入排序Insert Sort"></a>插入排序Insert Sort</h2><p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span></span>&#123;<br>	<span class="hljs-keyword">int</span> len=nums.size();<br>	<span class="hljs-keyword">if</span>(len==<span class="hljs-number">0</span> || len==<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;<br>	<span class="hljs-keyword">int</span> key=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;len;i++)&#123;<br>		key=nums[i];<br>		j=i;<br>		<span class="hljs-keyword">while</span>((j&gt;=<span class="hljs-number">1</span>) &amp;&amp; (nums[j<span class="hljs-number">-1</span>]&gt;key))&#123;<br>			nums[j]=nums[j<span class="hljs-number">-1</span>];<br>			j--;<br>		&#125;<br>		nums[j]=key;<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-keyword">int</span> tmp;<br>	<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; arr;<br>	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;Please type the array you wat to sort:&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>	<span class="hljs-keyword">while</span>(<span class="hljs-built_in">cin</span>&gt;&gt;tmp)&#123;<br>		arr.push_back(tmp);<br>	&#125;<br>	InsertSort(arr);<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span>&amp; x:arr)&#123;<br>		<span class="hljs-built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>为了更好地了解排序的过程，在实现过程中可以添加一些排序过程，输出排序中数组的值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">InsertSort</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span></span>&#123;<br>	<span class="hljs-keyword">int</span> len=nums.size();<br>	<span class="hljs-keyword">if</span>(len==<span class="hljs-number">0</span>||len==<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;<br>	<span class="hljs-keyword">int</span> tmp=<span class="hljs-number">0</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;len;i++)&#123;<br>		tmp=nums[i];<br>		<span class="hljs-keyword">int</span> j=i;<br>		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;The &quot;</span>&lt;&lt;i&lt;&lt;<span class="hljs-string">&quot;th round:&quot;</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>		<span class="hljs-keyword">while</span>( (j&gt;=<span class="hljs-number">1</span>) &amp;&amp; (tmp&lt;nums[j<span class="hljs-number">-1</span>]) )&#123;<br>			nums[j]=nums[j<span class="hljs-number">-1</span>];<br>			j--;<br>			<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span>&amp; x:nums)&#123;<br>				<span class="hljs-built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>			&#125;<br>			<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>		&#125;<br>		nums[j]=tmp;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span>&amp; x:nums)&#123;<br>			<span class="hljs-built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;<br>		&#125;<br>		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>比如我们输入<code>1 5 2 4 3</code>， 结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs reStructuredText">Please type the array you wat to sort:<br>1 5 2 4 3 ^X<br><br>The 1th round:<br>1 5 2 4 3<br><br><br>The 2th round:<br>1 5 5 4 3<br>1 2 5 4 3<br><br><br>The 3th round:<br>1 2 5 5 3<br>1 2 4 5 3<br><br><br>The 4th round:<br>1 2 4 5 5<br>1 2 4 4 5<br>1 2 3 4 5<br><br>Final anwers:<br>1 2 3 4 5<br></code></pre></td></tr></table></figure>
+<p>3.20 update…</p>
 
             </div>
             <hr>
@@ -271,8 +249,6 @@ DP=recursion+memorization</script><blockquote>
                     
                       <a class="hover-with-bg" href="/categories/Algorithm/">Algorithm</a>
                     
-                      <a class="hover-with-bg" href="/categories/Algorithm/dynamic-programming/">dynamic programming</a>
-                    
                   </div>
                 
                 
@@ -280,10 +256,6 @@ DP=recursion+memorization</script><blockquote>
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Algorithm/">Algorithm</a>
-                    
-                      <a class="hover-with-bg" href="/tags/dynamic-programming/">dynamic programming</a>
-                    
-                      <a class="hover-with-bg" href="/tags/leetcode/">leetcode</a>
                     
                   </div>
                 
@@ -300,18 +272,12 @@ DP=recursion+memorization</script><blockquote>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/19/algorithmInplement/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">持续更新算法分析与设计--部分算法C++实现</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2020/03/16/LinuxCommand/">
-                        <span class="hidden-mobile">(Updating...)Notes for Linux commands</span>
+                      <a href="/2021/03/02/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">动态规划简介———以Fibonacci数列为例</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
