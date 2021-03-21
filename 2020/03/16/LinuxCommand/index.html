@@ -188,7 +188,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      399 字
+      589 字
     </span>
   
 
@@ -198,7 +198,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      11
        分钟
     </span>
   
@@ -285,8 +285,17 @@
 </tbody>
 </table>
 </div>
-<p>2021.3.18 update…</p>
-<h2 id="Cases-I-Came-across"><a href="#Cases-I-Came-across" class="headerlink" title="Cases I Came across"></a>Cases I Came across</h2>
+<h2 id="Cases-I-Came-across"><a href="#Cases-I-Came-across" class="headerlink" title="Cases I Came across"></a>Cases I Came across</h2><h3 id="Vim"><a href="#Vim" class="headerlink" title="Vim"></a>Vim</h3><h4 id="Replace-string-that-contains-or"><a href="#Replace-string-that-contains-or" class="headerlink" title="Replace string that contains \(or  /)"></a>Replace string that contains <code>\</code>(or  <code>/</code>)</h4><p>​                We know that in command mode we use <code>:%s/string1/string2/g</code> to replace string1 with string2 globally.(Note that <code>/</code> here is a delimiter) But when we need to replace string that contains <code>\</code> or <code>/</code>, it’s a bit tricky. In general, there are two ways to do it.</p>
+<p>​                For example, we want replace all the <code>\</code>  with <code>/</code>  (when you want to convert path from <strong>Windows</strong> to <strong>Linux</strong>)</p>
+<blockquote>
+<ul>
+<li>escape the <code>/</code>, use <code>:%s/\\/\//g</code>. From the first slash to the last slash, they are: <strong>delimiter, escape character, character, delimiter, escape character, character, delimiter</strong>.<br>In this case we use <code>/</code> as a delimiter, so if we don’t want to mix up delimiter <code>/</code> and the character <code>/</code>, we use <code>\/</code> to escape <code>/</code>  the delimiter to <code>/</code> the character.</li>
+<li>use another delimiter, like <code>#</code> or <code>@</code>, use <code>:%s#\\#/#g</code>. From the first slash to the last slash, they are: <strong>escape character, character, character</strong>. But note that you can’t use <code>|</code>, <code>\</code>,<code>&quot;</code> as a separator. </li>
+</ul>
+<p>Note that in both cases we escape <code>\</code> (the default escape character) as <code>\\</code> when we want to use it as a character.</p>
+</blockquote>
+<p>​                Always be ware of the structure of the command, distinguish <strong><em>delimiter</em></strong> , <strong><em>escape character</em></strong> and normal <strong><em>character</em></strong>.</p>
+
             </div>
             <hr>
             <div>
@@ -304,6 +313,8 @@
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                      <a class="hover-with-bg" href="/tags/vim/">vim</a>
                     
                   </div>
                 
